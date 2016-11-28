@@ -15,7 +15,6 @@
 %% ---
 -export([double/1]).
 -export([fac/1]).
--export([tuppelExample/2]).
 -export([listExample/6]).
 -export([tail_recursive_fib/1]).
 -export([list_create/1]).
@@ -25,6 +24,9 @@
 %% Internal functions
 %% ====================================================================
 average(X) -> sum(X) / len(X).
+
+fac(N) when N == 0 -> 1;
+fac(N) when N > 0 -> N*fac(N - 1).
 
 sum([H|T]) -> H + sum(T);
 sum([]) -> 0.
@@ -43,12 +45,11 @@ create_number_beam(F, T) when F < T -> create_number_beam(F, T) ++ [F+1].
 %% ------------------
 double(X) -> 2 * X.
 
-fac(1) -> 1;
-fac(N) ->
-N * fac(N - 1).
+%%fac(1) -> 1;
+%%fac(N) -> N * fac(N - 1).
 
-tuppelExample(X, Y) ->
-	Point = {X, Y}.
+%%tuppelExample(X, Y) ->
+%%	Point = {X, Y}.
 
 listExample(A, B, C, D, E, F) -> [A, B, C, D, E, F].
 

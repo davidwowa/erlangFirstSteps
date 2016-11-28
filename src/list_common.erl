@@ -9,7 +9,6 @@
 %% API functions
 %% ====================================================================
 -export([]).
--export([fac/1]).
 -export([create_positive_number_beam/1]).
 -export([create_negative_number_beam/1]).
 -export([create_number_beam/2]).
@@ -18,14 +17,9 @@
 -export([droplast/1]).
 -export([show_last/1]).
 
--import(io,[format/1]).
-
 %% ====================================================================
 %% Internal functions
 %% ====================================================================
-
-fac(N) when N == 0 -> 1;
-fac(N) when N > 0 -> N*fac(N - 1).
 
 %% Aufgabe 1
 %% *
@@ -51,7 +45,3 @@ droplast([H|T]) -> [H|droplast(T)].
 %% show last element TODO !!!
 show_last([T]) -> T ;
 show_last([H|T]) -> [H|show_last(T)].
-
-%% Aufgabe 2
-%% * Fibonaci
-
