@@ -45,12 +45,6 @@ create_number_beam(F, T) when F < T -> create_number_beam(F, T) ++ [F+1].
 %% ------------------
 double(X) -> 2 * X.
 
-%%fac(1) -> 1;
-%%fac(N) -> N * fac(N - 1).
-
-%%tuppelExample(X, Y) ->
-%%	Point = {X, Y}.
-
 listExample(A, B, C, D, E, F) -> [A, B, C, D, E, F].
 
 tail_recursive_fib(N) ->

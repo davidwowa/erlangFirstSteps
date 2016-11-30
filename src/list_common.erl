@@ -4,7 +4,6 @@
 
 -module(list_common).
 
-
 %% ====================================================================
 %% API functions
 %% ====================================================================
@@ -16,10 +15,18 @@
 -export([ring_buffer/2]).
 -export([droplast/1]).
 -export([show_last/1]).
+-export([split/2]).
 
 %% ====================================================================
 %% Internal functions
 %% ====================================================================
+
+%% Split list
+
+split(N, List) -> split(N, List, []).
+
+split(0, List, Acc)  -> {Acc, List};
+split(N, [H|T], Acc) -> split(N-1, T, [H|Acc]).
 
 %% Aufgabe 1
 %% *

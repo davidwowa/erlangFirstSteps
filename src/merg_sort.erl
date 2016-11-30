@@ -2,6 +2,8 @@
 
 -module(merg_sort).
 
+-import(io,[format/1]).
+
 %% ====================================================================
 %% API functions
 %% ====================================================================
@@ -13,12 +15,10 @@
 
 mergesort([]) -> [];
 mergesort(List) when is_list(List) -> 
-	{Left, Right} = split(length(List) div 2, List),
+	io:format("An~"),
+	{Left, Right} = list_common:split(length(List) div 2, List),
+	io:format("Dn~"),
   	merge(mergesort(Left), mergesort(Right)).
-
-split(N, List) -> split(N, List, []).
-split(0, List, Acc)  -> {Acc, List};
-split(N, [H|T], Acc) -> split(N-1, T, [H|Acc]).
 
 merge([], Right) -> Right;
 merge(Left, []) -> Left;
