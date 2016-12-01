@@ -1,7 +1,6 @@
 %% @author David
 %% @doc @todo Add description to list_common.
 
-
 -module(list_common).
 
 %% ====================================================================
@@ -30,6 +29,7 @@ split(N, [H|T], Acc) -> split(N-1, T, [H|Acc]).
 
 %% Aufgabe 1
 %% *
+%% Umgekehrt
 create_positive_number_beam(0) -> [];
 create_positive_number_beam(N) when N > 0 -> create_positive_number_beam(N-1) ++ [N].
 
@@ -51,4 +51,4 @@ droplast([H|T]) -> [H|droplast(T)].
 
 %% show last element TODO !!!
 show_last([T]) -> T ;
-show_last([H|T]) -> [H|show_last(T)].
+show_last([H|T]) -> io:fwrite("List size: ~p\n", [erlang:length(T)]), [H|show_last(T)].

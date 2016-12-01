@@ -8,7 +8,7 @@
 %% API functions
 %% ====================================================================
 -export([]).
--export([sum1/1, sum/1, sum_interval/2]).
+-export([sum1/1, sum/1]).
 -export([fib/1, fibX/1, fib_list/1]).
 
 %% ====================================================================
@@ -33,14 +33,7 @@ fib_list(End, [H|_]=L) when length(L) == End -> H;
 fib_list(End, [A,B|_]=L) ->
     fib_list(End, [A+B|L]).
 
-%% *
+%% * when N > 1 ->
+sum1(N) -> io:fwrite("SUM: ~p\n",N), float(N) + sum1(float(float(1)/float(N - 1))).
 
-sum1(N) when N > 1 -> N + sum1(1/(N - 1));
-sum1(1) -> 1.
-
-sum(N) when N > 1 -> N + sum(N - 1);
-sum(1) -> 1.
-
-sum_interval(N, M) when N < M -> N + sum_interval(N + 1, M);
-sum_interval(N, M) when N == M -> N;
-sum_interval(N, M) when N > M -> {error, "N > M"}.
+sum(N) when N > 1 -> N + sum(N - 1).
