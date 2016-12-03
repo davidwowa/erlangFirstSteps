@@ -7,6 +7,8 @@
 %% API functions
 %% ====================================================================
 -export([]).
+-export([create_positive_number_list_reverse/1, create_positive_number_list/1]).
+
 -export([create_positive_number_beam/1]).
 -export([create_negative_number_beam/1]).
 -export([create_number_beam/2]).
@@ -29,7 +31,8 @@ split(N, [H|T], Acc) -> split(N-1, T, [H|Acc]).
 
 %% Aufgabe 1
 %% *
-%% Umgekehrt
+% !!!This is not tail-recursive, and very slow, because list in erlang is a tree, an next example
+% add element on last place in tree!!!
 create_positive_number_beam(0) -> [];
 create_positive_number_beam(N) when N > 0 -> create_positive_number_beam(N-1) ++ [N].
 
@@ -38,6 +41,16 @@ create_negative_number_beam(N) when N < 0 -> create_negative_number_beam(N+1) ++
 
 create_number_beam(F, T) when F > T -> [];
 create_number_beam(F, T) when F =< T -> create_number_beam(F+1, T) ++ [F].
+
+% Tail-recursive solution
+create_positive_number_list_reverse(0) -> [0];
+create_positive_number_list_reverse(N) when N > 0 -> [N|create_positive_number_list_reverse(N - 1)].
+
+create_positive_number_list(0) -> [0];
+create_positive_number_list(N) when N > 0 -> create_positive_number_list_ext(N, -1).
+
+create_positive_number_list_ext(N, X) when X >= N -> [];
+create_positive_number_list_ext(N, X) when X < N -> [X + 1|create_positive_number_list_ext(N, X + 1)].
 
 %% * TODO !!!
 multiple(0) -> [];

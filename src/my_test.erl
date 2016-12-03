@@ -9,15 +9,26 @@
 %% API functions
 %% ====================================================================
 -export([]).
--export([fac/1]).
 -export([tail_recursive_fib/1]).
 -export([tail_fac/1]).
+-export([countM/1, countP/1]).
 
 %% ====================================================================
 %% Internal functions
 %% ====================================================================
-fac(N) when N == 0 -> 1;
-fac(N) when N > 0 -> N*fac(N - 1).
+
+% io:write([N]),
+countM(0) -> [0];
+countM(N) when N > 0 -> [N|countM(N - 1)].
+
+countP(0) -> [0];
+countP(N) when N > 0 -> countPD(N, -1).
+
+countPD(N, X) when X >= N -> [];
+countPD(N, X) when X < N -> [X + 1|countPD(N, X + 1)].
+
+
+
 
 sum([H|T]) -> H + sum(T);
 sum([]) -> 0.
