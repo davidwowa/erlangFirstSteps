@@ -26,5 +26,7 @@ mergesort(List) when is_list(List) ->
 merge([], Right) -> Right;
 merge(Left, []) -> Left;
 
-merge([L|Lt], Right=[R|_]) when L =< R -> [L|merge(Lt, Right)];
-merge(Left = [L|_], [R|Rt]) when L > R -> [R|merge(Left, Rt)].
+merge([L|Lt], Right=[R|_]) when L =< R -> 
+	[L|merge(Lt, Right)];
+merge(Left = [L|_], [R|Rt]) when L > R -> 
+	[R|merge(Left, Rt)].

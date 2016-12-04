@@ -22,9 +22,12 @@ fib(1) -> 1;
 fib(N) -> fib(N-1) + fib(N-2).
 
 %% From https://www.tutorialspoint.com/erlang/erlang_quick_guide.htm
+%% For-loop over Fibonacci
 for(0, _) -> []; 
-for(N, _) when N > 0 -> [fib(N)|for(N-1,fib(N))]. 
+for(N, _) when N > 0 -> 
+	[fib(N)|for(N-1,fib(N))]. 
 
-%% * Simple sum calculating
+%% * Simple sum calculating, point is realy important
 sum(0.0) -> 0.0;
-sum(N) when N > 0 -> 1.0/N + sum(N - 1.0).
+sum(N) when N > 0 -> 
+	1.0/N + sum(N - 1.0).
