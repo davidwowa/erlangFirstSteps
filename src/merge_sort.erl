@@ -1,7 +1,6 @@
 %% @author 
 
 -module(merge_sort).
-
 -import(io,[format/1]).
 
 %% ====================================================================
@@ -14,16 +13,18 @@
 %% ====================================================================
 
 mergesort([]) -> [];
-mergesort(List) when is_list(List) -> 
-	{Left, Right} = list_common:split(length(List) div 2, List),
-  	merge(mergesort(Left), mergesort(Right)).
+mergesort(List) when is_list(List) ->
+		{Left, Right} = list_common:split(length(List) div 2, List),
+%% 		io:fwrite("Left ~w  Right ~w\n ", [Left, Right]),
+		if
+			length(Left) >=2 ->
+				merge(mergesort(Left), mergesort(Right));
+			true ->
+				merge(Left, Right)
+		end.
 
 merge([], Right) -> Right;
 merge(Left, []) -> Left;
 
-merge(Left = [L|Ls], Right=[R|Rs]) ->
-  if L =< R ->
-      [L | merge(Ls, Right)];
-    L > R ->
-      [R | merge(Left, Rs)]
-  end.
+merge([L|Lt], Right=[R|_]) when L =< R -> [L|merge(Lt, Right)];
+merge(Left = [L|_], [R|Rt]) when L > R -> [R|merge(Left, Rt)].

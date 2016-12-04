@@ -1,7 +1,7 @@
 %% @author David
 %% @doc @todo Add description to 'my_test'.
 
--module('my_test').
+-module(my_test).
 -import(io,[format/1]).
 
 %% ====================================================================

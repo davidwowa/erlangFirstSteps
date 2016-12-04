@@ -15,17 +15,26 @@
 -export([split/2]).
 -export([remove_last_element/1]).
 -export([tail_reverse/1]).
+-export([get_list_with_ranodm_numbers/2]).
 
 %% ====================================================================
 %% Internal functions
 %% ====================================================================
 
-%% Split list
+%% generate list with random numbers 
+get_list_with_ranodm_numbers(MaxRandomNumber, ListSize) -> 
+	[rand:uniform(MaxRandomNumber) || _ <- lists:seq(1, ListSize)].
 
-split(N, List) -> split(N, List, []).
+%% Split list
+split(N, List) when 2 < length(List) -> 
+	split(N, List, []);
+split(_, List) when 2 == length(List) -> 
+	{[hd(List)], tl(List)}.
 
 split(0, List, Acc)  -> {Acc, List};
-split(N, [H|T], Acc) -> split(N-1, T, [H|Acc]).
+split(N, [H|T], Acc) -> 
+%% 	io:fwrite("~w ~w ~w ~w\n", [N, H, T, Acc]), 
+	split(N-1, T, [H|Acc]).
 
 %% Aufgabe 1
 %% *

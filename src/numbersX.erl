@@ -1,7 +1,6 @@
 %% @author David
 %% @doc @todo Add description to numbersX.
 
-
 -module(numbersX).
 
 %% ====================================================================
