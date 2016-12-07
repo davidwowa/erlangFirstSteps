@@ -1,0 +1,3 @@
+-record(user, {id, name, age, adress, trait}).
+-record(sporttype, {name, hours, price}).
+-record(club, {adress, users, sporttypes}).

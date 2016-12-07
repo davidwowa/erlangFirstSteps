@@ -7,7 +7,7 @@
 %% ====================================================================
 %% API functions
 %% ====================================================================
--export([readlines_CSV/1, readlines/1, readlinesB/1]).
+-export([readlines_CSV/1, readlines/1, readlinesB/1, readlines_CSV_A/1]).
 
 %% ====================================================================
 %% Internal functions
@@ -28,6 +28,22 @@ get_all_lines_CSV(Device, Accum) ->
 				String3 = re:replace(String2, ";", ""),
 				Al = erlang:binary_to_integer(tl(tl(String3))),
 			[{erlang:list_to_atom(String1), Al} | get_all_lines_CSV(Device, Accum)]
+    end.
+
+readlines_CSV_A(FileName) ->
+    {ok, Device} = file:open(FileName, [read]),
+    get_all_lines_CSV_A(Device, []).
+ 
+get_all_lines_CSV_A(Device, Accum) ->
+    case io:get_line(Device, "") of
+        eof  -> file:close(Device), Accum;
+        Line -> Spl = string:sub_string(Line, 1, string:len(Line)-1),
+				Idx = string:cspan(Spl, ";"),
+				String1 = string:sub_string(Spl, 1, Idx),
+				String2 = string:sub_string(Spl, Idx, string:len(Spl)),
+				String3 = re:replace(String2, ";", ""),
+				Al = erlang:binary_to_list(tl(tl(String3))),
+			[{erlang:list_to_atom(String1), Al} | get_all_lines_CSV_A(Device, Accum)]
     end.
 
 readlinesB(FileName) ->

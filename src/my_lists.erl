@@ -13,7 +13,7 @@
 -export([count_words/1, count_word/2]).
 -export([count_char/2, adjust_text/1]).
 -export([list_max_count_word/1]).
--export([count_words_clear/1]).
+-export([count_words_clear/1, count_words_clearX/1]).
 -export([get_most_frequent_words/2]).
 -export([get_words_N/2]).
 -export([heron_sqrt/1, heron_sqrt_ext/4]).
@@ -96,6 +96,15 @@ count_words_clear(String) when is_list(String) ->
 	CalculatorReformer = fun(Str) -> {Str, count_word(StringClear, Str)} end,
 	io:fwrite("Number of words : ~w \n", [string:words(StringClear)]),
 	io:fwrite("Size of set of words : ~w \n", [sets:size(sets:from_list(string:tokens(StringClear, " ")))]),
+	lists:map(CalculatorReformer, Words).
+
+count_words_clearX([]) -> io:fwrite("ERROR: string is empty!\n");
+count_words_clearX(String) when is_list(String) -> 
+	StringClear = adjust_text(String),
+	Words = sets:to_list(sets:from_list(string:tokens(StringClear, " "))),
+	CalculatorReformer = fun(Str) -> {Str, count_word(StringClear, Str)} end,
+	io:fwrite("Number of words : ~w \n", [string:words(StringClear)]),
+%% 	io:fwrite("Size of set of words : ~w \n", [sets:size(sets:from_list(string:tokens(StringClear, " ")))]),
 	lists:map(CalculatorReformer, Words).
 
 count_word(String, Word) ->
