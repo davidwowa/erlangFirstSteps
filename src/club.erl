@@ -33,8 +33,7 @@ create_dummy_data_sports() ->
 	 #sporttype{name="Sleep", hours=1, price=40},
 	 #sporttype{name="Hapkido", hours=6, price=50},
 	 #sporttype{name="Kendo", hours=3, price=60},
-	 #sporttype{name="Kung-Fu", hours=4, price=70}
-	 ].
+	 #sporttype{name="Kung-Fu", hours=4, price=70}].
 
 random_trait()->
 	List = [student, retired, adult, child],
