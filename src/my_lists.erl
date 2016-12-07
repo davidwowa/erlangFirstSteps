@@ -12,6 +12,11 @@
 -export([calculate_sum/1]).
 -export([count_words/1, count_word/2]).
 -export([count_char/2, adjust_text/1]).
+-export([list_max_count_word/1]).
+-export([count_words_clear/1]).
+-export([get_most_frequent_words/2]).
+-export([get_words_N/2]).
+-export([heron_sqrt/1, heron_sqrt_ext/4]).
 
 %% ====================================================================
 %% Internal functions
@@ -48,7 +53,32 @@ calculate_sum(List) when is_list(List) ->
 %% create sublist from list 
 get_sublist_from(Start, End, List) when is_list(List) -> lists:sublist(List, Start, End).
 
-%% Heron TODO
+%% Heron
+heron_sqrt(0) -> 0;
+heron_sqrt(N) -> heron_sqrt_ext(N, 10, 1.0, 0.0).
+
+heron_sqrt_ext(N, Count, Is_init, Xn) when is_float(N) ->
+	if 
+		Is_init == 1 ->
+			StartValue = 0.5 * (N + 1.0),
+			heron_sqrt_ext(N, Count-1, 0, StartValue);
+		true -> 
+			if Count >= 0 ->
+%% 				   math:sqrt(2) -> 1.4142135623730951
+%% 					this alg 1.414213562373095 its not possible this to equal
+
+%% 					RealyValue = math:sqrt(N),
+%% 					if
+%% 						RealyValue == Xn -> io:fwrite("Result : ~w \n ", [N]),
+%% 						   	heron_sqrt_ext(N, 0, 0, Xn);
+%% 						true -> io:fwrite("~w \n", [Xn])
+%% 					end,
+				   	Xnn = 0.5 * (Xn + (N/Xn)), 
+					io:fwrite("Xn = ~w \n ", [Xnn]),
+					heron_sqrt_ext(N, Count-1, 0, Xnn);
+			true -> io:fwrite("Result : ~w \n ", [Xn])
+			end
+		end.
 
 %% Word
 count_words([]) -> io:fwrite("ERROR: string is empty!\n");
@@ -57,6 +87,15 @@ count_words(String) when is_list(String) ->
 	io:fwrite("Size of set of words : ~w \n", [sets:size(sets:from_list(string:tokens(String, " ")))]),
 	Words = sets:to_list(sets:from_list(string:tokens(String, " "))),
 	CalculatorReformer = fun(Str) -> {Str, count_word(String, Str)} end,
+	lists:map(CalculatorReformer, Words).
+
+count_words_clear([]) -> io:fwrite("ERROR: string is empty!\n");
+count_words_clear(String) when is_list(String) -> 
+	StringClear = adjust_text(String),
+	Words = sets:to_list(sets:from_list(string:tokens(StringClear, " "))),
+	CalculatorReformer = fun(Str) -> {Str, count_word(StringClear, Str)} end,
+	io:fwrite("Number of words : ~w \n", [string:words(StringClear)]),
+	io:fwrite("Size of set of words : ~w \n", [sets:size(sets:from_list(string:tokens(StringClear, " ")))]),
 	lists:map(CalculatorReformer, Words).
 
 count_word(String, Word) ->
@@ -75,3 +114,22 @@ count_char(String, Char) ->
 adjust_text(Text) ->
 	Text1 = re:replace(Text, "[0-9]+", "", [global, {return, list}]),
 	re:replace(Text1, "[.|,|\\-|:|!|?|>|<]+", "", [global, {return, list}]).
+
+%% * found on stackoverflow
+list_max_count_word([]) -> list_is_empty;
+list_max_count_word([H | T]) -> lists:foldl(fun erlang:max/2, H, T);
+list_max_count_word(_) -> bad_argument.
+
+%% most frequent words
+get_most_frequent_words(0, []) -> list_is_empty;
+get_most_frequent_words(N, Set)  when is_list(Set) ->
+	SortFilter = fun({_, Count},{_, Count2}) -> Count >= Count2 end,
+	lists:sublist(lists:sort(SortFilter, Set), N);
+get_most_frequent_words(_, _) -> bad_arguments.
+
+%% words N
+get_words_N(0, []) -> list_is_empty_or;
+get_words_N(N, List) when is_list(List) ->
+	Filter = fun({_, Count}) -> Count >= N end,
+	lists:filter(Filter, List);
+get_words_N(_, _) -> bad_arguments.

@@ -16,4 +16,3 @@
 headX([]) -> [];
 headX(List) -> 
 	io:fwrite("\n~w", [List]), headX(tl(List)).
-
