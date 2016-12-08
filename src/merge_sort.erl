@@ -13,14 +13,14 @@
 
 mergesort([]) -> [];
 mergesort(List) when is_list(List) ->
-		{Left, Right} = list_common:split(length(List) div 2, List),
- 		io:fwrite("Left ~w  Right ~w\n ", [Left, Right]),
-		if
-			length(Left) >=2 ->
-				merge(mergesort(Left), mergesort(Right));
-			true ->
-				merge(Left, Right)
-		end.
+	{Left, Right} = list_common:split(length(List) div 2, List),
+	io:fwrite("Left ~w  Right ~w\n ", [Left, Right]),
+	if
+		length(Left) >=2 ->
+			merge(mergesort(Left), mergesort(Right));
+		true ->
+			merge(Left, Right)
+	end.
 
 merge([], Right) -> Right;
 merge(Left, []) -> Left;

@@ -33,7 +33,7 @@ split(_, List) when 2 == length(List) ->
 
 split(0, List, Acc)  -> {Acc, List};
 split(N, [H|T], Acc) -> 
-%% 	io:fwrite("~w ~w ~w ~w\n", [N, H, T, Acc]), 
+	%% 	io:fwrite("~w ~w ~w ~w\n", [N, H, T, Acc]), 
 	split(N-1, T, [H|Acc]).
 
 %% Aufgabe 1
@@ -64,7 +64,7 @@ create_positive_number_list_ext(N, X) when X < N ->
 
 % from book
 tail_reverse(L) -> tail_reverse(L,[]).
- 
+
 tail_reverse([],Acc) -> Acc;
 tail_reverse([H|T],Acc) -> 
 	tail_reverse(T, [H|Acc]).

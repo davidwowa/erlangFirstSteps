@@ -22,7 +22,8 @@ create_dummy_data_club() ->
 	#club{adress="Street 1, 12345 Town", users=create_dummy_data_users(), sporttypes=create_dummy_data_sports()}.
 
 create_dummy_data_users()->
-	PartyUsers = file_handler:readlines_CSV("/Users/David/Desktop/party.csv"),
+	%% 	PartyUsers = file_handler:readlines_CSV("/Users/David/Desktop/party.csv"),
+	PartyUsers = file_handler:readlines_CSV("C:\\Users\\wdzak\\git\\erlangFirstSteps\\files\\party.csv"),
 	AddUuid = fun({Name, Age}) -> [#user{id = uuid:to_string(uuid:v4()), name=Name, age=Age, adress=random_adress(),trait=random_trait()}] end,
 	lists:flatmap(AddUuid, PartyUsers).
 
@@ -41,7 +42,8 @@ random_trait()->
 	lists:nth(Idx, List).
 
 random_adress()->
-	List = file_handler:readlines_CSV_A("/Users/David/Desktop/us-500.csv"),
+	%% 	List = file_handler:readlines_CSV_A("/Users/David/Desktop/us-500.csv"),
+	List = file_handler:readlines_CSV_A("C:\\Users\\wdzak\\git\\erlangFirstSteps\\files\\us-500.csv"),
 	Idx = rand:uniform(length(List)),
 	lists:nth(Idx, List).
 

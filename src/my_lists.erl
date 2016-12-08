@@ -64,23 +64,24 @@ heron_sqrt_ext(N, Count, Is_init, Xn) when is_float(N) ->
 			heron_sqrt_ext(N, Count-1, 0, StartValue);
 		true -> 
 			if Count >= 0 ->
-%% 				   math:sqrt(2) -> 1.4142135623730951
-%% 					this alg 1.414213562373095 its not possible this to equal
-
-%% 					RealyValue = math:sqrt(N),
-%% 					if
-%% 						RealyValue == Xn -> io:fwrite("Result : ~w \n ", [N]),
-%% 						   	heron_sqrt_ext(N, 0, 0, Xn);
-%% 						true -> io:fwrite("~w \n", [Xn])
-%% 					end,
-				   	Xnn = 0.5 * (Xn + (N/Xn)), 
-					io:fwrite("Xn = ~w \n ", [Xnn]),
-					heron_sqrt_ext(N, Count-1, 0, Xnn);
-			true -> io:fwrite("Result : ~w \n ", [Xn])
+				   %% 				   math:sqrt(2) -> 1.4142135623730951
+				   %% 					this alg 1.414213562373095 its not possible this to equal
+				   
+				   %% 					RealyValue = math:sqrt(N),
+				   %% 					if
+				   %% 						RealyValue == Xn -> io:fwrite("Result : ~w \n ", [N]),
+				   %% 						   	heron_sqrt_ext(N, 0, 0, Xn);
+				   %% 						true -> io:fwrite("~w \n", [Xn])
+				   %% 					end,
+				   Xnn = 0.5 * (Xn + (N/Xn)), 
+				   io:fwrite("Xn = ~w \n ", [Xnn]),
+				   heron_sqrt_ext(N, Count-1, 0, Xnn);
+			   true -> io:fwrite("Result : ~w \n ", [Xn])
 			end
-		end.
+	end.
 
 %% Word
+%% C:\\Users\\wdzak\\git\\erlangFirstSteps\\files\\TestText.txt
 count_words([]) -> io:fwrite("ERROR: string is empty!\n");
 count_words(String) when is_list(String) -> 
 	io:fwrite("Number of words : ~w \n", [string:words(String)]),
@@ -104,19 +105,19 @@ count_words_clearX(String) when is_list(String) ->
 	Words = sets:to_list(sets:from_list(string:tokens(StringClear, " "))),
 	CalculatorReformer = fun(Str) -> {Str, count_word(StringClear, Str)} end,
 	io:fwrite("Number of words : ~w \n", [string:words(StringClear)]),
-%% 	io:fwrite("Size of set of words : ~w \n", [sets:size(sets:from_list(string:tokens(StringClear, " ")))]),
+	%% 	io:fwrite("Size of set of words : ~w \n", [sets:size(sets:from_list(string:tokens(StringClear, " ")))]),
 	lists:map(CalculatorReformer, Words).
 
 count_word(String, Word) ->
 	Filter = fun(X, N) when X =:= Word -> N + 1;
 				(_, N) -> N
-				end,
+			 end,
 	lists:foldl(Filter, 0, string:tokens(String, " ")).
 
 count_char(String, Char) ->
 	Filter = fun(X, N) when X =:= Char -> N + 1;
 				(_, N) -> N
-				end,
+			 end,
 	lists:foldl(Filter, 0, String).
 
 %% Remove numbers ... from given text
