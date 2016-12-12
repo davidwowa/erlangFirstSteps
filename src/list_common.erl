@@ -16,7 +16,6 @@
 -export([remove_last_element/1]).
 -export([tail_reverse/1]).
 -export([get_list_with_ranodm_numbers/2, generateList/1]).
-
 %% ====================================================================
 %% Internal functions
 %% ====================================================================
