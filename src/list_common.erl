@@ -50,16 +50,17 @@ split(N, [H|T], Acc) ->
 
 % Tail-recursive solution
 create_positive_number_list_reverse(0) -> [0];
-create_positive_number_list_reverse(N) when N > 0 -> 
+create_positive_number_list_reverse(N) when N > 0 ->
+%% 	io:fwrite("~w", [N]),
 	[N|create_positive_number_list_reverse(N - 1)].
 
 create_positive_number_list(0) -> [0];
 create_positive_number_list(N) when N > 0 -> 
 	create_positive_number_list_ext(N, -1).
 
-create_positive_number_list_ext(N, X) when X >= N -> [];
-create_positive_number_list_ext(N, X) when X < N -> 
-	[X + 1|create_positive_number_list_ext(N, X + 1)].
+create_positive_number_list_ext(N, Acc) when  Acc >= N -> [];
+create_positive_number_list_ext(N,  Acc) when  Acc < N -> 
+	[Acc + 1|create_positive_number_list_ext(N, Acc + 1)].
 
 % from book
 tail_reverse(L) -> tail_reverse(L,[]).

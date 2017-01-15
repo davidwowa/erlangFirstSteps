@@ -1,7 +1,6 @@
 %% @author David
 %% @doc @todo Add description to club.
 
-
 -module(club).
 -include("club_records.hrl").
 
@@ -11,7 +10,7 @@
 -export([get_dict/1]).
 -export([create_dummy_data_club/0]).
 -export([save_data/1, add_user/2, remove_user/2]).
--export([create_test_user/0, remove_test_user/0]).
+-export([create_test_user/0, create_test_user2/0, remove_test_user/0]).
 -export([test/0]).
 -export([lookup/1]).
 %% ====================================================================
@@ -48,7 +47,7 @@ random_adress()->
 	lists:nth(Idx, List).
 
 save_data(CC_Club) -> 
-	file:write_file("/Users/David/Desktop/cc-club0.txt", io_lib:fwrite("~p.\n", [CC_Club])).
+	file:write_file("C:\\Users\\wdzak\\Desktop\\cc-club0.txt", io_lib:fwrite("~p.\n", [CC_Club])).
 
 add_user(User, Users) ->
 	lists:merge([User], Users).
@@ -60,7 +59,13 @@ create_test_user() ->
 	Data = create_dummy_data_club(),
 	User = #user{id="test", name="TEST", age=230, adress="TEST", trait=adult},
 	Dat = Data#club{users = lists:merge([User], Data#club.users)},
-	save_data(Dat).
+	save_data(Dat), Dat.
+
+create_test_user2() ->
+	Data = create_dummy_data_club(),
+	User = #user{id="test", name="TEST", age=230, adress="TEST", trait=adult},
+	Dat = Data#club{users = lists:merge([User], Data#club.users)},
+	Dat.
 
 remove_test_user() ->
 	Data = create_dummy_data_club(),
@@ -69,7 +74,7 @@ remove_test_user() ->
 	Dat0 = Data#club{users = lists:merge([User], Data#club.users)},
 	io:fwrite("delete user"),
 	Dat1 = Dat0#club{users = lists:delete(User, Dat0#club.users)},
-	save_data(Dat1).
+	save_data(Dat1), Dat1.
 
 lookup(Name) ->
 	Data = create_dummy_data_club(),
