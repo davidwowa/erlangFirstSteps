@@ -27,7 +27,7 @@ for(0, _) -> [];
 for(N, _) when N > 0 -> 
 	[fib(N)|for(N-1,fib(N))]. 
 
-%% * Simple sum calculating, point is realy important
+%% * Simple sum calculating
 sum(0.0) -> 0.0;
 sum(N) when N > 0 -> 
 	1.0/N + sum(N - 1.0).
